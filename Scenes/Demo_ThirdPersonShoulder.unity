@@ -1268,6 +1268,7 @@ GameObject:
   - component: {fileID: 680506945}
   - component: {fileID: 680506948}
   - component: {fileID: 680506949}
+  - component: {fileID: 680506952}
   - component: {fileID: 680506951}
   m_Layer: 0
   m_Name: Player
@@ -1424,46 +1425,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: 2938829d6e1a3e74d87d827e31978bfc, type: 2}
+  _health: {fileID: 680506952}
+  Animator: {fileID: 680506950}
   _eye: {fileID: 152468446}
   _vcam: {fileID: 2039906274}
-  Animator: {fileID: 680506950}
   Speed: 5
-  _vertical:
-    Value: 0
-    m_SpeedMode: 1
-    m_MaxSpeed: 1
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: 
-    m_InputAxisValue: 0
-    m_InvertInput: 0
-    m_MinValue: 0
-    m_MaxValue: 0
-    m_Wrap: 0
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 0
-      m_RecenteringTime: 0
-      m_LegacyHeadingDefinition: 0
-      m_LegacyVelocityFilterStrength: 0
-  _horizontal:
-    Value: 0
-    m_SpeedMode: 1
-    m_MaxSpeed: 1
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: 
-    m_InputAxisValue: 0
-    m_InvertInput: 0
-    m_MinValue: 0
-    m_MaxValue: 0
-    m_Wrap: 0
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 0
-      m_RecenteringTime: 0
-      m_LegacyHeadingDefinition: 0
-      m_LegacyVelocityFilterStrength: 0
+--- !u!114 &680506952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680506942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c5e9ea53ad9ab4bb7f3e1525f884c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatorStateController: {fileID: 680506945}
+  _unitType: 1
+  <CurrentHealth>k__BackingField: 50
 --- !u!1 &814338560
 GameObject:
   m_ObjectHideFlags: 0

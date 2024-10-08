@@ -1,7 +1,9 @@
 using Cinemachine;
+using develop_common;
 using develop_tps;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -12,12 +14,11 @@ namespace develop_ThirdPersonShoulder
     public class ThirdPersonShoulderController : MonoBehaviour
     {
         [SerializeField] private InputReader _inputReader;
+        [SerializeField] private PlayerHealth _health;
+        public Animator Animator;
         [SerializeField] private Transform _eye;
         [SerializeField] private CinemachineVirtualCamera _vcam;
-        public Animator Animator;
         public float Speed = 5f;
-        [SerializeField] private AxisState _vertical;
-        [SerializeField] private AxisState _horizontal;
 
         static int _hashFront = Animator.StringToHash("Front");
         static int _hashSide = Animator.StringToHash("Side");
@@ -26,14 +27,35 @@ namespace develop_ThirdPersonShoulder
         private float _inputY;
         private CinemachinePOV _currentPOV;
 
+        private bool _inputNone;
+
         private void Start()
         {
             _inputReader.MoveEvent += OnMoveHandle;
             _currentPOV = _vcam.GetCinemachineComponent<CinemachinePOV>();
+
+            _health.UnitStatus
+                .Subscribe((x) => 
+                {
+                    _inputNone = x == EUnitStatus.Executing ? true : false;
+                });
         }
 
         private void Update()
         {
+            Move();
+
+            if(Input.GetKeyDown(KeyCode.B))
+            {
+
+            }
+        }
+
+        private void Move()
+        {
+
+            if (_inputNone) return;
+
             // “ü—Í‚ðŽæ“¾
             var leftStick = new Vector3(_inputX, 0, _inputY).normalized;
 
