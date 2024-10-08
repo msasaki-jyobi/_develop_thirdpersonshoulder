@@ -1426,10 +1426,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: 2938829d6e1a3e74d87d827e31978bfc, type: 2}
   _health: {fileID: 680506952}
-  Animator: {fileID: 680506950}
+  _animator: {fileID: 680506950}
+  _rigidBody: {fileID: 680506947}
   _eye: {fileID: 152468446}
   _vcam: {fileID: 2039906274}
+  _ground: {fileID: 11400000, guid: 7158327d83f50584f8d0125d7018fe79, type: 2}
   Speed: 5
+  JumpPower: 7
 --- !u!114 &680506952
 MonoBehaviour:
   m_ObjectHideFlags: 0

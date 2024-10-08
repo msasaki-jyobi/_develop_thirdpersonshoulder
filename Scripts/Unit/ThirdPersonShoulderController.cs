@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
+// à⁄ìÆÇ≈Ç´Ç»Ç¢óùóRÅFApplyRootmotion & StateÇ™LocomotionÇ…Ç»Ç¡ÇƒÇ»Ç¢
+
 namespace develop_ThirdPersonShoulder
 {
 
@@ -15,10 +17,13 @@ namespace develop_ThirdPersonShoulder
     {
         [SerializeField] private InputReader _inputReader;
         [SerializeField] private PlayerHealth _health;
-        public Animator Animator;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Rigidbody _rigidBody;
         [SerializeField] private Transform _eye;
         [SerializeField] private CinemachineVirtualCamera _vcam;
+        [SerializeField] private LineData _ground;
         public float Speed = 5f;
+        public float JumpPower = 7f;
 
         static int _hashFront = Animator.StringToHash("Front");
         static int _hashSide = Animator.StringToHash("Side");
@@ -26,29 +31,38 @@ namespace develop_ThirdPersonShoulder
         private float _inputX;
         private float _inputY;
         private CinemachinePOV _currentPOV;
-
         private bool _inputNone;
+
+        private bool _canJump;
+        private bool _isJump;
+
+        private EUnitStatus _unitStatus;
+
 
         private void Start()
         {
             _inputReader.MoveEvent += OnMoveHandle;
+            _inputReader.StartedJumpEvent += OnJumpHandle;
+
             _currentPOV = _vcam.GetCinemachineComponent<CinemachinePOV>();
 
             _health.UnitStatus
                 .Subscribe((x) => 
                 {
+                    _unitStatus = x;
                     _inputNone = x == EUnitStatus.Executing ? true : false;
                 });
         }
 
         private void Update()
         {
+            _canJump = UtilityFunction.CheckLineData(_ground, transform);
             Move();
+        }
 
-            if(Input.GetKeyDown(KeyCode.B))
-            {
-
-            }
+        private void FixedUpdate()
+        {
+            Jump();
         }
 
         private void Move()
@@ -69,14 +83,28 @@ namespace develop_ThirdPersonShoulder
             _eye.localRotation = verticalRotation;
 
             // AnimatorÇ…îΩâf
-            Animator.SetFloat(_hashFront, velocity.z, 0.1f, Time.deltaTime);
-            Animator.SetFloat(_hashSide, velocity.x, 0.1f, Time.deltaTime);
+            _animator.SetFloat(_hashFront, velocity.z, 0.1f, Time.deltaTime);
+            _animator.SetFloat(_hashSide, velocity.x, 0.1f, Time.deltaTime);
+        }
+
+        private void Jump()
+        {
+            if(_isJump)
+            {
+                _rigidBody.AddForce(transform.up * JumpPower, ForceMode.Impulse);
+                _isJump = false;
+            }
         }
 
         private void OnMoveHandle(Vector2 movement)
         {
             _inputX = movement.x;
             _inputY = movement.y;
+        }
+
+        private void OnJumpHandle()
+        {
+            _isJump = true;
         }
     }
 }
