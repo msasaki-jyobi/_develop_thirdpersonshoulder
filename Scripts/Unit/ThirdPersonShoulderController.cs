@@ -42,7 +42,7 @@ namespace develop_ThirdPersonShoulder
         private void Start()
         {
             _inputReader.MoveEvent += OnMoveHandle;
-            _inputReader.StartedJumpEvent += OnJumpHandle;
+            _inputReader.PrimaryActionCrossEvent += OnJumpHandle;
 
             _currentPOV = _vcam.GetCinemachineComponent<CinemachinePOV>();
 
@@ -102,9 +102,9 @@ namespace develop_ThirdPersonShoulder
             _inputY = movement.y;
         }
 
-        private void OnJumpHandle()
+        private void OnJumpHandle(bool flg, EInputReader key)
         {
-            _isJump = true;
+            _isJump = flg;
         }
     }
 }
