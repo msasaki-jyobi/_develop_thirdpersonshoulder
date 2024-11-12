@@ -16,7 +16,7 @@ namespace develop_ThirdPersonShoulder
     public class ThirdPersonShoulderController : MonoBehaviour
     {
         [SerializeField] private InputReader _inputReader;
-        [SerializeField] private PlayerHealth _health;
+        [SerializeField] private UnitHealth _health;
         [SerializeField] private Animator _animator;
         [SerializeField] private Rigidbody _rigidBody;
         [SerializeField] private Transform _eye;
